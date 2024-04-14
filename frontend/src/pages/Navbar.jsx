@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useLocation, Navigate } from 'react-router-dom';
-// import AxiosInstance from './AxiosInstance';
+import {React,useState} from 'react';
+import '../styles/Navbar.css'
+import { Link,NavLink, useLocation, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -8,6 +8,7 @@ const drawerWidth = 240;
 
 const Navbar = (props) => {
   const { content } = props;
+  const [menuOpen,setMenuOpen] = useState(false)
   const location = useLocation();
   const path = location.pathname;
   const navigate = useNavigate();
@@ -18,25 +19,37 @@ const Navbar = (props) => {
   }
   
   return (
-    <div style={{ display: 'flex' }}>
-      <nav style={{ width: drawerWidth }}>
-        <ul>
-          <li key={1}>
-            <Link to="/" className={path === "/home" ? "selected" : ""}>
+    <div>
+      <nav>
+      {/* <Link to="/" className={path === "/home" ? "selected" : ""}> */}
+      <Link to="/" className="title">
               Home
             </Link>
+            <div 
+              className="menu"
+              onClick={() => {
+                setMenuOpen(!menuOpen)
+                }
+              }>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+        <ul className={menuOpen ? "open":""}>
+          <li key={1} >
+            
           </li>
           <li key={2}>
-            <Link to="/about" className={path === "/about" ? "selected" : ""}>
+            <NavLink to="/about" className={path === "/about" ? "selected" : ""}>
               About
-            </Link>
+            </NavLink>
           </li>
           <li key={3}>
-            <Link to="/logout" className={path === "/logout" ? "selected" : ""}>Logout</Link>
+            <NavLink to="/logout" className={path === "/logout" ? "selected" : ""}>Logout</NavLink>
           </li>
         </ul>
       </nav>
-      <div style={{ flexGrow: 1 }}>
+      <div>
         
         {content}
       </div>
